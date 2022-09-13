@@ -1,0 +1,15 @@
+# Cache
+/.ipynb_checkpoints
+
+# misc
+.DS_Store
+
+# log
+*.csv
+
+# dataset
+/daisee/evaluation
+/daisee/test
+/daisee/train
+
+
