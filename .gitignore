@@ -13,3 +13,5 @@
 /daisee/train
 /daisee/96
 
+# too large weights
+weights/weights_vggB.h5
