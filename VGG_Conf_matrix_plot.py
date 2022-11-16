@@ -9,6 +9,7 @@ Created on Fri Dec  4 10:45:56 2020
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from datetime import datetime
 #import utils
 import os
 import PIL
@@ -33,7 +34,7 @@ batch_size = 64
 
 datagen_train = ImageDataGenerator(horizontal_flip=True)
 
-train_generator = datagen_train.flow_from_directory("train/",
+train_generator = datagen_train.flow_from_directory("daisee/train/",
                                                     target_size=(img_size,img_size),
                                                     color_mode="grayscale",
                                                     batch_size=batch_size,
@@ -41,14 +42,14 @@ train_generator = datagen_train.flow_from_directory("train/",
                                                     shuffle=True)
 
 datagen_validation = ImageDataGenerator(horizontal_flip=True)
-validation_generator = datagen_validation.flow_from_directory("test/",
+validation_generator = datagen_validation.flow_from_directory("daisee/test/",
                                                     target_size=(img_size,img_size),
                                                     color_mode="grayscale",
                                                     batch_size=batch_size,
                                                     class_mode='categorical',
                                                     shuffle=False)
 
-test_generator = datagen_validation.flow_from_directory("evaluation/",
+test_generator = datagen_validation.flow_from_directory("daisee/evaluation/",
                                                     target_size=(img_size,img_size),
                                                     color_mode="grayscale",
                                                     batch_size=batch_size,
@@ -136,11 +137,11 @@ model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy
 model.summary()
 
 
-
-
-model.load_weights('vgg_model_weights_serv_(hpo).h5')
-
+model.load_weights('eng_model_weights_serv.h5')
+tic = datetime.now()
 evaluate = model.evaluate_generator(test_generator, steps = test_generator.n // test_generator.batch_size, verbose =1)
+time = datetime.now() - tic
+print('Processing time {}'.format(time))
 
 # assigning label names to the corresponding indexes
 labels = {0:'Very_Engaged', 1:'Not_Engaged', 2:'Normally_Engaged'}
