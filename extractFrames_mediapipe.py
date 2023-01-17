@@ -15,7 +15,7 @@ import numpy as np
 import csv
 
 
-# dataset = os.listdir('../../Dataset/DAiSEE/DataSet_DAiSEE/') # [Extract 1]
+# dataset = os.listdir('DataSet_DAiSEE/') # [Extract 1]
 dataset = "../../Dataset/DAiSEE/DataSet_DAiSEE/" #[Extract 2]
 if '.DS_Store' in dataset:
     dataset.remove('.DS_Store')
@@ -24,7 +24,8 @@ mp_drawing = mp.solutions.drawing_utils
 mp_holistic = mp.solutions.holistic
 
 # extracting frames
-def get_frame(video_file,destination_path):
+# def get_frame(video_file,destination_path, set): #[Extract 1]
+def get_frame(video_file,destination_path): #[Extract 2]
     filename_format = "{:s}.{:s}"
     ext = "csv"
     filename = filename_format.format(video_file[:-4],ext)
@@ -33,7 +34,8 @@ def get_frame(video_file,destination_path):
         header = csv.reader(file)
         header = next(header)
 
-    with open(filename,"w", newline='') as csvfile:
+    # with open(set+filename,"w", newline='') as csvfile: #[Extract 1]
+    with open(filename,"w", newline='') as csvfile: #[Extract 1]
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(header)
 
@@ -119,7 +121,8 @@ def get_frame(video_file,destination_path):
                 row = pose_row+face_row
                                
                 # Export to CSV
-                with open(filename, mode='a', newline='') as f:
+                # with open(set+filename, mode='a', newline='') as f: #[Extract 1]
+                with open(filename, mode='a', newline='') as f: #[Extract 1]
                     csv_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                     csv_writer.writerow(row)
             
@@ -139,18 +142,19 @@ def get_frame(video_file,destination_path):
 # ==========================================================================================
 # for ttv in dataset:
 #     if not ttv.startswith('.'):
-#         users = os.listdir('DataSet_DAiSEE/'+ttv+'/')
-#         path_sets = os.path.abspath('.')+'/DataSet_DAiSEE/'+ttv+'/'
-#         # print("Path sets{}".format(path_sets))
-#         for user in users:
-#             if not user.startswith('.'):
-#                 currUser = os.listdir('DataSet_DAiSEE/'+ttv+'/'+user+'/')
-#                 for extract in currUser:
-#                     if not extract.startswith('.'):
-#                         clip = os.listdir('DataSet_DAiSEE/'+ttv+'/'+user+'/'+extract+'/')[0]
-#                         print ("Processed video {}".format(clip[:-4]))
-#                         path = os.path.abspath('.')+'/DataSet_DAiSEE/'+ttv+'/'+user+'/'+extract+'/'
-#                         get_frame(clip,path,path_sets)
+#         if not ttv.endswith('*.csv'):
+#             users = os.listdir('DataSet_DAiSEE/'+ttv+'/')
+#             path_sets = os.path.abspath('.')+'/DataSet_DAiSEE/'+ttv+'/'
+#             # print("Path sets{}".format(path_sets))
+#             for user in users:
+#                 if not user.startswith('.'):
+#                     currUser = os.listdir('DataSet_DAiSEE/'+ttv+'/'+user+'/')
+#                     for extract in currUser:
+#                         if not extract.startswith('.'):
+#                             clip = os.listdir('DataSet_DAiSEE/'+ttv+'/'+user+'/'+extract+'/')[0]
+#                             print ("Processed video {}".format(clip[:-4]))
+#                             path = os.path.abspath('.')+'/DataSet_DAiSEE/'+ttv+'/'+user+'/'+extract+'/'
+#                             get_frame(clip,path,path_sets)
 
 # [Extract 2]
 # ===========================================================================================
