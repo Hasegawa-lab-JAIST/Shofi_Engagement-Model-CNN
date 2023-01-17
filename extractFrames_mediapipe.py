@@ -133,7 +133,8 @@ def get_frame(video_file,destination_path): #[Extract 2]
             if cv2.waitKey(5) & 0xFF == ord('q'):
                 ret_val = False
                 break
-            
+        
+        print("Finish extracting video {}".format(video_file))
         cap.release()
         cv2.destroyAllWindows()
         return ret_val
@@ -152,7 +153,7 @@ def get_frame(video_file,destination_path): #[Extract 2]
 #                     for extract in currUser:
 #                         if not extract.startswith('.'):
 #                             clip = os.listdir('DataSet_DAiSEE/'+ttv+'/'+user+'/'+extract+'/')[0]
-#                             print ("Processed video {}".format(clip[:-4]))
+#                             print ("Processing video {}".format(clip))
 #                             path = os.path.abspath('.')+'/DataSet_DAiSEE/'+ttv+'/'+user+'/'+extract+'/'
 #                             get_frame(clip,path,path_sets)
 
